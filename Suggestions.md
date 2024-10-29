@@ -1,0 +1,5 @@
+- move menu area to a dashboard
+- Separate menu are from navbar
+- decide what to do when clicking in submit answers and none, or not all of them has an answer
+- After answers has been displayed, disable radio buttons so user cannot change the selected answer.
+- Create a new HTML page, to display 20-30-50 questions and use filters to see a selection of them.

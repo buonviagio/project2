@@ -1,0 +1,98 @@
+.form-of-questions {
+  /* border: 3px black solid; */
+  margin-top: 100px;
+}
+
+body {
+  background-image: url("../images/background1.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat;
+  height: 100vh;
+
+  /* min-height: 1300px; */
+}
+
+.navbar {
+  border-radius: 10px;
+}
+
+/* animation block */
+.animation-block {
+  height: 250px;
+  border: 1px black solid;
+}
+
+.animation-block p {
+  border: 1px green solid;
+  height: 100px;
+  text-align: center;
+}
+
+/* Container*/
+.search-container {
+  height: 100px;
+}
+
+.input-group {
+  margin: 0 auto;
+}
+
+/* Cards*/
+
+.col-md-3 {
+  padding: 0px;
+  margin: 10px;
+}
+
+.card {
+  box-shadow: 1px 1px 1px 1px grey;
+}
+
+.card-title {
+  font-size: 18px;
+}
+
+.card-text,
+p {
+  font-size: 16px;
+}
+
+.form-check-label {
+  font-size: 16px;
+}
+
+/* Info WebPage */
+/* desription-block  */
+
+.desription-block {
+  border: 1px black solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  /* height: 400px; */
+}
+
+#read-more-btn {
+  width: 150px;
+}
+
+/* More Less Read function */
+.desription-block {
+  margin-top: 100px;
+}
+
+.more-text {
+  display: none;
+}
+
+.text.show-more .more-text {
+  display: inline;
+}
+
+.text {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 10px;
+  width: 750px;
+}
