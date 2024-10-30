@@ -6,7 +6,10 @@ const getDataFromApi = () => {
     const url = 'https://opentdb.com/api.php?amount=48';
     fetch(url).then((response) => { return response.json() })
         //.then((response) => { chooseQuestionsNew(response.results); })
-        .then((response) => { controller(response.results); })
+        .then((data) => {
+            controller(data.results);
+            console.log('data.result :>> ', data);
+        })
         .catch(error => console.log('Error :>> ', error));
 
 }
@@ -216,38 +219,44 @@ function checkAnswers(arrayOfQuestions) {
 
 } */
 
-let inputValue = "";
-let radioButtonValue = "";
-const filterQuestionDependOnUserChoose = (arrayOfQuestions, event) => {
 
-    if (event.type === "input") {
-        inputValue = event.target.value;
-    } else if (event.type === "change" && event.target.type === "radio") {
-        radioButtonValue = event.target.value;
-    }
+const filterQuestionDependOnUserChoose = (arrayOfQuestions) => {
+    let inputValue = document.getElementById("category-input").value
+    let radioButtonValue = document.querySelector("input[type='radio']:checked").value
+    let checkboxValues = document.querySelectorAll("input[type='checkbox']:checked");
+    const checkedValuesOfCheckedBoxes = Array.from(checkboxValues).map(item => item.value);
 
     const result = arrayOfQuestions.filter((item) => {
         console.log("inputValue =>", inputValue, " radioButtonValue =>", radioButtonValue);
-        const result = (item.category.toLowerCase().includes(inputValue.toLowerCase()) && (item.type.includes(radioButtonValue)));
+        const result = (item.category.toLowerCase().includes(inputValue.toLowerCase()) && (item.type.includes(radioButtonValue))
+            //in this case array of difficulty transfotms in string with RegExp we're looking for matching 
+            && (checkedValuesOfCheckedBoxes.toString().match(item.difficulty) || checkedValuesOfCheckedBoxes.toString().length == 0));
         return result;
     });
+    if (result.length === 0) {
+        console.log('NO MATCHES');
+    }
     showCardsFunction(result);
 }
 
 const setEventListeners = (arrayOfQuestions) => {
     const input = document.getElementById("category-input");
-    input.addEventListener("input", (event) => {
+    input.addEventListener("input", () => {
         //console.log('event INPUT TEXT:>> ', event);
         //console.log("date selected", input.value);
-        filterQuestionDependOnUserChoose(arrayOfQuestions, event)
+        filterQuestionDependOnUserChoose(arrayOfQuestions)
     });
 
     const radioButton = document.querySelector(".btn-group");
     //console.log('radioButton :>> ', radioButton);
-    radioButton.addEventListener("change", (event) => {
-        filterQuestionDependOnUserChoose(arrayOfQuestions, event)
-    })
+    radioButton.addEventListener("change", () => {
+        filterQuestionDependOnUserChoose(arrayOfQuestions)
+    });
 
+    const checkBoxes = document.getElementById("checkbox-for-difficulty");
+    checkBoxes.addEventListener("change", () => {
+        filterQuestionDependOnUserChoose(arrayOfQuestions)
+    });
 }
 
 
