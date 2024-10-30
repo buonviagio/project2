@@ -203,7 +203,7 @@ function checkAnswers(arrayOfQuestions) {
     buttonToRemove.remove();
 }
 
-const filterQuestionDependOnUserChoose = (arrayOfQuestions, input) => {
+/* const filterQuestionDependOnUserChoose = (arrayOfQuestions, input) => {
     //const query = input.toLowerCase();
     const result = arrayOfQuestions.filter((item) => {
         const result = item.category.toLowerCase().includes(input);
@@ -214,16 +214,39 @@ const filterQuestionDependOnUserChoose = (arrayOfQuestions, input) => {
     console.log('result :>> ', result);
     showCardsFunction(result);
 
+} */
+
+let inputValue = "";
+let radioButtonValue = "";
+const filterQuestionDependOnUserChoose = (arrayOfQuestions, event) => {
+
+    if (event.type === "input") {
+        inputValue = event.target.value;
+    } else if (event.type === "change" && event.target.type === "radio") {
+        radioButtonValue = event.target.value;
+    }
+
+    const result = arrayOfQuestions.filter((item) => {
+        console.log("inputValue =>", inputValue, " radioButtonValue =>", radioButtonValue);
+        const result = (item.category.toLowerCase().includes(inputValue.toLowerCase()) && (item.type.includes(radioButtonValue)));
+        return result;
+    });
+    showCardsFunction(result);
 }
 
 const setEventListeners = (arrayOfQuestions) => {
-    //console.log('method setEventListeners :>> ');
     const input = document.getElementById("category-input");
-    //console.log('input :>> ', input);
     input.addEventListener("input", (event) => {
-        console.log("date selected", input.value);
-        filterQuestionDependOnUserChoose(arrayOfQuestions, input.value)
+        //console.log('event INPUT TEXT:>> ', event);
+        //console.log("date selected", input.value);
+        filterQuestionDependOnUserChoose(arrayOfQuestions, event)
     });
+
+    const radioButton = document.querySelector(".btn-group");
+    //console.log('radioButton :>> ', radioButton);
+    radioButton.addEventListener("change", (event) => {
+        filterQuestionDependOnUserChoose(arrayOfQuestions, event)
+    })
 
 }
 
