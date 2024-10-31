@@ -8,7 +8,7 @@ const getDataFromApi = () => {
         //.then((response) => { chooseQuestionsNew(response.results); })
         .then((data) => {
             controller(data.results);
-            console.log('data.result :>> ', data);
+            //console.log('data.result :>> ', data);
         })
         .catch(error => console.log('Error :>> ', error));
 
@@ -37,13 +37,15 @@ const addInitialEvent = () => {
 addInitialEvent();
 
 const showCardsFunction = (arrayOfQuestions) => {
-    const answersContainer = document.getElementById("radioButtonsWrapElem");
-    answersContainer.innerHTML = "";
-    //delete duplicate button send-answers
-    let buttonToRemove = document.getElementById("send-answers");
-    if (buttonToRemove !== null) {
-        buttonToRemove.remove();
-    }
+    /*     //clear table
+        const answersContainer = document.getElementById("radioButtonsWrapElem");
+        answersContainer.innerHTML = "";
+        //delete duplicate button send-answers
+        let buttonToRemove = document.getElementById("send-answers");
+        if (buttonToRemove !== null) {
+            buttonToRemove.remove();
+        } */
+    clearFunction();
 
     //this loop retrieves each questions, in our case it is represented by an object
     for (let index = 0; index < arrayOfQuestions.length; index++) {
@@ -124,9 +126,7 @@ const showCardsFunction = (arrayOfQuestions) => {
     answerButton.classList.add("btn", "btn-primary");
     answerButton.innerText = "Send your answers";
     formForTheButton.appendChild(answerButton);
-    //formForTheButton.after(answerButton);
     submitAnswers(arrayOfQuestions);
-    //filterQuestionDependOnUserChoose(arrayOfQuestions);
 }
 
 const submitAnswers = (arrayOfQuestions) => {
@@ -206,19 +206,6 @@ function checkAnswers(arrayOfQuestions) {
     buttonToRemove.remove();
 }
 
-/* const filterQuestionDependOnUserChoose = (arrayOfQuestions, input) => {
-    //const query = input.toLowerCase();
-    const result = arrayOfQuestions.filter((item) => {
-        const result = item.category.toLowerCase().includes(input);
-        console.log('item.category :>> ', item.category);
-        console.log('result :>> ', result);
-        return result;
-    });
-    console.log('result :>> ', result);
-    showCardsFunction(result);
-
-} */
-
 
 const filterQuestionDependOnUserChoose = (arrayOfQuestions) => {
     let inputValue = document.getElementById("category-input").value
@@ -227,28 +214,35 @@ const filterQuestionDependOnUserChoose = (arrayOfQuestions) => {
     const checkedValuesOfCheckedBoxes = Array.from(checkboxValues).map(item => item.value);
 
     const result = arrayOfQuestions.filter((item) => {
-        console.log("inputValue =>", inputValue, " radioButtonValue =>", radioButtonValue);
+        //console.log("inputValue =>", inputValue, " radioButtonValue =>", radioButtonValue);
         const result = (item.category.toLowerCase().includes(inputValue.toLowerCase()) && (item.type.includes(radioButtonValue))
             //in this case array of difficulty transfotms in string with RegExp we're looking for matching 
             && (checkedValuesOfCheckedBoxes.toString().match(item.difficulty) || checkedValuesOfCheckedBoxes.toString().length == 0));
         return result;
     });
+    //if there aren't any matches we alert, or call the showCardsFunction function
     if (result.length === 0) {
         console.log('NO MATCHES');
+        clearFunction()
+        const radioButtonsWrapElemNew = document.getElementById("radioButtonsWrapElem");
+        const allertMessage = document.createElement("h3");
+        allertMessage.style.background = "#F8F9FA";
+        allertMessage.style.borderRadius = "10px";
+        allertMessage.innerText = "Sorry, but there aren't any matches, try to change the parameters";
+        radioButtonsWrapElemNew.appendChild(allertMessage);
+
+    } else {
+        showCardsFunction(result);
     }
-    showCardsFunction(result);
 }
 
 const setEventListeners = (arrayOfQuestions) => {
     const input = document.getElementById("category-input");
     input.addEventListener("input", () => {
-        //console.log('event INPUT TEXT:>> ', event);
-        //console.log("date selected", input.value);
         filterQuestionDependOnUserChoose(arrayOfQuestions)
     });
 
     const radioButton = document.querySelector(".btn-group");
-    //console.log('radioButton :>> ', radioButton);
     radioButton.addEventListener("change", () => {
         filterQuestionDependOnUserChoose(arrayOfQuestions)
     });
@@ -279,10 +273,20 @@ function toGetArrayOfAnswers(questionObject) {
     return sortedAnswersArray;
 }
 
+/** Clear Function */
+const clearFunction = () => {
+    //clear table
+    const answersContainer = document.getElementById("radioButtonsWrapElem");
+    answersContainer.innerHTML = "";
+    //delete duplicate button send-answers
+    let buttonToRemove = document.getElementById("send-answers");
+    if (buttonToRemove !== null) {
+        buttonToRemove.remove();
+    }
+}
 
 
-
-
+/** Animating link function */
 let quizImage = document.querySelector("img");
 let angle = Math.PI / 2;
 const animateImage = (time, lastTime) => {

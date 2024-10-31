@@ -57,6 +57,8 @@ const startQuiz = (e) => {
         }
     }
 
+    console.log('amountOfQuestions :>> ', amountOfQuestions);
+    createTimer(amountOfQuestions);
     /** calling the function that retrieves data from API */
     getDataFromApi(category, difficulty, type, amountOfQuestions);
 }
@@ -66,17 +68,15 @@ const addInitialEvent = () => {
     const valueOfButton = document.getElementById("start-quiz");
     // check if the value is not qual null, then call function
     if (valueOfButton !== null) {
-        // valueOfButton.addEventListener("click", startQuiz);
-
-        //REVIEW event listener modified to add a timer and submit answes when time is up. NEEDs refactoring!!!
-        valueOfButton.addEventListener("click", (e) => {
+        valueOfButton.addEventListener("click", startQuiz);
+        /* valueOfButton.addEventListener("click", (e) => {
             createTimer()
             setTimeout(() => {
                 //alert("Times up")
                 submitAnswers()
             }, 5000)
             startQuiz(e)
-        });
+        }); */
     }
 }
 /** Entry point of the programm */
@@ -295,47 +295,49 @@ const moreLessAction = () => {
 
 moreLessAction();
 
+/** Timer functions */
 
+const createTimer = (amountOfQuestions) => {
 
-const createTimer = () => {
-    const body = document.querySelector(".container")
+    const body = document.getElementById("timer-are");
+    body.style.background = "#F8F9FA";
+    body.style.borderRadius = "10px";
 
-    const timer = document.createElement("h2")
-    const timeValue = 0
+    // to clear timer
+    if (body.hasChildNodes("h2")) {
+        body.innerHTML = "";
+    }
 
-
-    timer.innerText = timeValue
-
-    body.appendChild(timer)
-
-    runTimer(timeValue)
+    const timer = document.createElement("h2");
+    const timeLimit = document.createElement("h3");
+    //Description how many time user have to answer the question
+    timeLimit.innerText = "For " + amountOfQuestions + " questions you have " + ((amountOfQuestions * 10 >= 60) ? (Math.floor((amountOfQuestions * 10) / 60) + " min : " + (amountOfQuestions * 10 == 120 ? 0 : amountOfQuestions * 10 - 60)) : amountOfQuestions * 10) + " sec";
+    const timeValue = 0;
+    timer.innerText = timeValue;
+    body.appendChild(timeLimit);
+    body.appendChild(timer);
+    runTimer(timeValue, amountOfQuestions);
 }
 
 
-//TODO Function to run countdown. It needs fine tuning / refactoring
-const runTimer = (timeValue) => {
+const runTimer = (timeValue, amountOfQuestions) => {
     const timer = document.querySelector("h2")
     const timerLogic = () => {
         const seconds = timeValue++
-        timer.innerText = seconds
-        if (seconds === 5) {
+        //timer.innerText = seconds
+
+        if (seconds < 60) {
+            timer.innerText = seconds
+        } else {
+            timer.innerText = Math.floor(seconds / 60) + " : " + (seconds == 120 ? 0 : seconds - 60)
+        }
+
+        if (seconds === (amountOfQuestions * 10)) {
             clearInterval(myInterval)
+            const valueOfButton = document.getElementById("send-answers");
+            valueOfButton.click();
         }
     }
     const myInterval = setInterval(timerLogic, 1000)
 
 }
-
-/* let quizImage = document.querySelector("img");
-let angle = Math.PI / 2;
-const animateImage = (time, lastTime) => {
-    if (lastTime != null) {
-
-        angle += (time - lastTime) * 0.001;
-
-    }
-    quizImage.style.top = (Math.sin(angle) * 20) + "px";
-    quizImage.style.left = (Math.cos(angle) * 200) + "px";
-    requestAnimationFrame(newTime => animateImage(newTime, time));
-}
-requestAnimationFrame(animateImage); */
