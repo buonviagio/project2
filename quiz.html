@@ -29,29 +29,79 @@
                 <a class="nav-link" href="info.html">Quiz</a>
               </li>
             </ul>
+
+            <!-- Button trigger modal -->
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              Press to know the rules of the quiz
+            </button>
+
+            <!-- Modal -->
+            <div
+              class="modal fade"
+              id="exampleModal"
+              tabindex="-1"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                      The rules of the Quiz
+                    </h5>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    You can choose between 1, 3, 6, 9 or 12 questions. Each quiz
+                    includes various categories such as general knowledge,
+                    history, science, and entertainment. You can select a
+                    category or let the system assign one randomly. The
+                    questions come in three difficulty levels: easy, medium, and
+                    hard. Choose a difficulty level that suits your expertise,
+                    or opt for a mix for a balanced challenge. Scoring is based
+                    on difficulty—easy questions earn 1 point, medium 2 points,
+                    and hard 3 points. You'll have a time limit for each
+                    question: 10 seconds. Your objective is to score as high as
+                    possible by answering correctly and quickly!
+                  </div>
+                </div>
+              </div>
+            </div>
           </nav>
         </div>
       </div>
 
       <!-- <div class="start-quiz-btn"></div> -->
 
+      <!-- Set up the quiz section BUTTON-->
+      <div class="set-up-quiz-container">
+        <a
+          class="btn btn-primary"
+          data-bs-toggle="collapse"
+          href="#collapseExample"
+          role="button"
+          aria-expanded="false"
+          aria-controls="collapseExample"
+        >
+          set up the quiz
+        </a>
+      </div>
+
       <!-- Set up the quiz section -->
-      <a
-        class="btn btn-primary"
-        data-bs-toggle="collapse"
-        href="#collapseExample"
-        role="button"
-        aria-expanded="false"
-        aria-controls="collapseExample"
-      >
-        set up the quiz
-      </a>
       <div class="collapse" id="collapseExample">
         <div class="card card-body">
-          Some placeholder content for the collapse component. This panel is
-          hidden by default but revealed when the user activates the relevant
-          trigger.
-
+          <p>Here you can choose the options of your own quiz.</p>
+          <!-- Radio buttons for amount of questions -->
           <div class="form-check">
             <div class="form-check form-check-inline">
               <input
@@ -113,7 +163,27 @@
               >
             </div>
           </div>
+          <!-- The end of radio buttons -->
 
+          <!-- Check Box Timer -->
+          <div
+            class="btn-group"
+            role="group"
+            aria-label="Basic checkbox toggle button group"
+          >
+            <input
+              type="checkbox"
+              class="btn-check"
+              id="btncheck1"
+              autocomplete="off"
+              value="true"
+            />
+            <label class="btn btn-outline-primary" for="btncheck1"
+              >Quiz with Timer</label
+            >
+          </div>
+
+          <!-- Category section -->
           <select
             id="category"
             name="category"
@@ -142,6 +212,7 @@
             <option value="30">Gadgets</option>
           </select>
 
+          <!-- Difficulty section -->
           <select
             id="difficulty"
             name="difficulty"
@@ -154,7 +225,7 @@
             <option value="medium">Medium</option>
             <option value="easy">Easy</option>
           </select>
-
+          <!-- Type of Question section -->
           <select
             id="type-of-questions"
             name="difficulty"
@@ -166,7 +237,7 @@
             <option value="multiple">Multiple Choose</option>
             <option value="boolean">True / False</option>
           </select>
-
+          <!-- Button start quiz -->
           <button
             class="btn btn-outline-primary"
             id="start-quiz"
@@ -180,33 +251,7 @@
           </button>
         </div>
       </div>
-
       <!-- The end of the set up the quiz section -->
-
-      <!-- Block of the rules description  -->
-      <div class="desription-block">
-        <!-- <h4 class="">Description of quiz rules</h4> -->
-        <p class="text">
-          Some rules of the Quiz
-          <span class="more-text">
-            <br />
-            Here are the quiz rules: You can choose between 1, 3, 6, or 9
-            questions. Each quiz includes various categories such as general
-            knowledge, history, science, and entertainment. You can select a
-            category or let the system assign one randomly. The questions come
-            in three difficulty levels: easy, medium, and hard. Choose a
-            difficulty level that suits your expertise, or opt for a mix for a
-            balanced challenge. Scoring is based on difficulty—easy questions
-            earn 1 point, medium 2 points, and hard 3 points. You'll have a time
-            limit for each question: 15 seconds for easy, 30 seconds for medium,
-            and 45 seconds for hard. Your objective is to score as high as
-            possible by answering correctly and quickly!
-          </span>
-        </p>
-        <button type="button" class="btn btn-primary" id="read-more-btn">
-          Read More
-        </button>
-      </div>
 
       <!-- Block of the timer -->
       <div id="timer-are"></div>

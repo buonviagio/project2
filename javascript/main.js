@@ -57,26 +57,24 @@ const startQuiz = (e) => {
         }
     }
 
-    console.log('amountOfQuestions :>> ', amountOfQuestions);
-    createTimer(amountOfQuestions);
+    /** to check checkbox in order to set timer or not */
+    const setTimer = document.getElementById("btncheck1");
+    if (setTimer.checked) {
+        createTimer(amountOfQuestions);
+    } else {
+        //clear timer if user doesn't choose timer
+        const body = document.getElementById("timer-are");
+        body.innerHTML = "";
+    }
     /** calling the function that retrieves data from API */
     getDataFromApi(category, difficulty, type, amountOfQuestions);
 }
 
 const addInitialEvent = () => {
-    //document.getElementById("start-quiz").addEventListener("click", startQuiz)
     const valueOfButton = document.getElementById("start-quiz");
     // check if the value is not qual null, then call function
     if (valueOfButton !== null) {
         valueOfButton.addEventListener("click", startQuiz);
-        /* valueOfButton.addEventListener("click", (e) => {
-            createTimer()
-            setTimeout(() => {
-                //alert("Times up")
-                submitAnswers()
-            }, 5000)
-            startQuiz(e)
-        }); */
     }
 }
 /** Entry point of the programm */
@@ -182,6 +180,9 @@ const showFunction = (arrayOfQuestions) => {
 const submitAnswers = (arrayOfQuestions) => {
     document.getElementById("send-answers").addEventListener("click", () => {
         checkAnswers(arrayOfQuestions)
+        //clear timer if user press the button before time up
+        const body = document.getElementById("timer-are");
+        body.innerHTML = "";
     });
 }
 
@@ -269,31 +270,6 @@ function toGetArrayOfAnswers(questionObject) {
 }
 
 /** End of the quiz section */
-
-/** Functionality READ_MORE / READ_LESS */
-const readMoreLess = () => {
-
-    const readMoreButton = document.getElementById("read-more-btn");
-    const text = document.getElementsByClassName("text")[0];
-    text.classList.toggle("show-more");
-    if (readMoreButton.innerText === "Read More") {
-        readMoreButton.innerText = "Read Less";
-    } else {
-        readMoreButton.innerText = "Read More";
-    }
-
-}
-
-const moreLessAction = () => {
-    //document.getElementById("read-more-btn").addEventListener("click", readMoreLess);
-    const valueOfButton = document.getElementById("read-more-btn");
-    // check if the value is not qual null, then call function
-    if (valueOfButton !== null) {
-        valueOfButton.addEventListener("click", readMoreLess);
-    }
-}
-
-moreLessAction();
 
 /** Timer functions */
 

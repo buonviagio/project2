@@ -24,8 +24,7 @@ const chooseQuestionsNew = (array) => {
     array.forEach(element => {
         arrayOfQuestions.push(element);
     });
-
-    console.log('arrayOfQuestions :>> ', arrayOfQuestions);
+    //console.log('arrayOfQuestions :>> ', arrayOfQuestions);
     showFunction(arrayOfQuestions);
 }
 
