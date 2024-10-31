@@ -5,6 +5,11 @@ body {
   background-repeat: repeat;
   height: 100vh;
 
+  /*this section in order to place always footer in the botton */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
   /* min-height: 1300px; */
 }
 
@@ -15,11 +20,13 @@ body {
 /* animation block */
 .animation-block {
   height: 250px;
-  border: 1px black solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
 }
 
 .animation-block p {
-  border: 1px green solid;
   height: 100px;
   text-align: center;
 }
@@ -31,6 +38,21 @@ body {
 
 .input-group {
   margin: 0 auto;
+}
+
+#container-with-radio-and-check-boxes {
+  width: 60%;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#container-with-radio-and-check-boxes div {
+  margin: 10px;
+  box-shadow: 1px 1px 1px #0e6efb;
 }
 
 /* Cards*/
@@ -60,6 +82,26 @@ p {
 .form-check-label {
   font-size: 16px;
 }
+
+/* Footer*/
+footer {
+  margin-top: 20px;
+  background-color: #f8f9fa;
+  height: 50px;
+  border-radius: 10px 10px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /*   position: absolute;
+  bottom: 0;
+  width: 100%; */
+}
+
+footer a img {
+  height: 30px;
+  width: 30px;
+}
+
 /* The end of the index page*/
 
 /* Quiz WebPage */

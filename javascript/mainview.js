@@ -294,7 +294,7 @@ const animateImage = (time, lastTime) => {
         angle += (time - lastTime) * 0.001;
 
     }
-    quizImage.style.top = (Math.sin(angle) * 20) + "px";
+    quizImage.style.top = (Math.sin(angle) * 60) + "px";
     quizImage.style.left = (Math.cos(angle) * 200) + "px";
     requestAnimationFrame(newTime => animateImage(newTime, time));
 }

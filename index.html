@@ -65,80 +65,84 @@
       </div>
 
       <!-- Radio buttons for types of the questions -->
-      <div
-        class="btn-group"
-        role="group"
-        aria-label="Basic radio toggle button group"
-      >
-        <input
-          type="radio"
-          class="btn-check"
-          name="btnradio"
-          id="btnradio1"
-          autocomplete="off"
-          value=""
-          checked
-        />
-        <label class="btn btn-outline-primary" for="btnradio1">Any type</label>
-
-        <input
-          type="radio"
-          class="btn-check"
-          name="btnradio"
-          id="btnradio2"
-          autocomplete="off"
-          value="multiple"
-        />
-        <label class="btn btn-outline-primary" for="btnradio2"
-          >Multiple Choise</label
+      <div class="container" id="container-with-radio-and-check-boxes">
+        <div
+          class="btn-group"
+          role="group"
+          aria-label="Basic radio toggle button group"
         >
+          <input
+            type="radio"
+            class="btn-check"
+            name="btnradio"
+            id="btnradio1"
+            autocomplete="off"
+            value=""
+            checked
+          />
+          <label class="btn btn-outline-primary" for="btnradio1"
+            >Any type</label
+          >
 
-        <input
-          type="radio"
-          class="btn-check"
-          name="btnradio"
-          id="btnradio3"
-          autocomplete="off"
-          value="boolean"
-        />
-        <label class="btn btn-outline-primary" for="btnradio3"
-          >True / False</label
+          <input
+            type="radio"
+            class="btn-check"
+            name="btnradio"
+            id="btnradio2"
+            autocomplete="off"
+            value="multiple"
+          />
+          <label class="btn btn-outline-primary" for="btnradio2"
+            >Multiple Choise</label
+          >
+
+          <input
+            type="radio"
+            class="btn-check"
+            name="btnradio"
+            id="btnradio3"
+            autocomplete="off"
+            value="boolean"
+          />
+          <label class="btn btn-outline-primary" for="btnradio3"
+            >True / False</label
+          >
+        </div>
+
+        <!-- Check boxes for difficulty -->
+        <div
+          class="btn-group"
+          id="checkbox-for-difficulty"
+          role="group"
+          aria-label="Basic checkbox toggle button group"
         >
-      </div>
+          <input
+            type="checkbox"
+            class="btn-check"
+            id="btncheck1"
+            autocomplete="off"
+            value="easy"
+          />
+          <label class="btn btn-outline-primary" for="btncheck1">Easy</label>
 
-      <!-- Check boxes for difficulty -->
-      <div
-        class="btn-group"
-        id="checkbox-for-difficulty"
-        role="group"
-        aria-label="Basic checkbox toggle button group"
-      >
-        <input
-          type="checkbox"
-          class="btn-check"
-          id="btncheck1"
-          autocomplete="off"
-          value="easy"
-        />
-        <label class="btn btn-outline-primary" for="btncheck1">Easy</label>
+          <input
+            type="checkbox"
+            class="btn-check"
+            id="btncheck2"
+            autocomplete="off"
+            value="medium"
+          />
+          <label class="btn btn-outline-primary" for="btncheck2">Medium</label>
 
-        <input
-          type="checkbox"
-          class="btn-check"
-          id="btncheck2"
-          autocomplete="off"
-          value="medium"
-        />
-        <label class="btn btn-outline-primary" for="btncheck2">Medium</label>
-
-        <input
-          type="checkbox"
-          class="btn-check"
-          id="btncheck3"
-          autocomplete="off"
-          value="hard"
-        />
-        <label class="btn btn-outline-primary" for="btncheck3">Hard</label>
+          <input
+            type="checkbox"
+            class="btn-check"
+            id="btncheck3"
+            autocomplete="off"
+            value="hard"
+          />
+          <label class="btn btn-outline-primary" for="btncheck3">Hard</label>
+        </div>
       </div>
 
       <!-- Form section, here are shown the cards with questions -->
@@ -164,6 +168,15 @@
         crossorigin="anonymous"
       ></script>
       <script src="javascript/mainview.js"></script>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <footer>
+          <a href="https://github.com/buonviagio/project2" target="_blank"
+            ><img src="/images/github.png" alt="github"
+          /></a>
+        </footer>
+      </div>
     </div>
   </body>
 </html>
