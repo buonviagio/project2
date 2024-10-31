@@ -70,11 +70,26 @@ const startQuiz = (e) => {
     getDataFromApi(category, difficulty, type, amountOfQuestions);
 }
 
+/** Clear the table */
+const clearTable = () => {
+    const table = document.querySelector(".table");
+
+    for (let index = 1; index < 5; index++) {
+        table.rows[index].cells[1].innerText = 0;
+        table.rows[index].cells[3].innerText = 0;
+        table.rows[index].cells[4].innerText = 0;
+    }
+
+}
+
 const addInitialEvent = () => {
     const valueOfButton = document.getElementById("start-quiz");
     // check if the value is not qual null, then call function
     if (valueOfButton !== null) {
         valueOfButton.addEventListener("click", startQuiz);
+        //cleat Table 
+        console.log('START QUIZ :>> ');
+        clearTable();
     }
 }
 /** Entry point of the programm */
@@ -93,6 +108,9 @@ const showFunction = (arrayOfQuestions) => {
     if (buttonToRemove !== null) {
         buttonToRemove.remove();
     }
+
+    //clear the table 
+    clearTable();
 
     //this loop retrieves each questions, in our case it is represented by an object
     for (let index = 0; index < arrayOfQuestions.length; index++) {
@@ -188,6 +206,9 @@ const submitAnswers = (arrayOfQuestions) => {
 
 /** This function checks the answers and shows the results */
 function checkAnswers(arrayOfQuestions) {
+    //array of the right question
+    let arrayOftheRightAnswers = [];
+
     for (let index = 0; index < arrayOfQuestions.length; index++) {
         //take every card by ID
         const card = document.getElementById("card" + index);
@@ -207,6 +228,9 @@ function checkAnswers(arrayOfQuestions) {
             //If we active this if block we will, check only cards which have submited answers by user
             if (answers[z].checked) {
                 if (answers[z].value === arrayOfQuestions[index].correct_answer) {
+                    //??
+                    arrayOftheRightAnswers.push(arrayOfQuestions[index]);
+
                     console.log('Correct Answer :>> ', arrayOfQuestions[index].correct_answer);
                     //Setting green border for right answered card
                     card.classList.remove("border-secondary");
@@ -216,7 +240,7 @@ function checkAnswers(arrayOfQuestions) {
                     cardText.classList.add("text-success");
                     //Setting header of the card
                     const rightAnswer = document.getElementById("header" + index);
-                    rightAnswer.innerText = "Your answer was correct";
+                    //rightAnswer.innerText = "Your answer was correct";
                     rightAnswer.style.background = "#198754";
 
                 } else {
@@ -228,7 +252,7 @@ function checkAnswers(arrayOfQuestions) {
                     cardText.classList.add("text-danger");
                     //Setting header of the card
                     const wrongAnswer = document.getElementById("header" + index);
-                    wrongAnswer.innerText = "I'm sorry, but you're wrong";
+                    //wrongAnswer.innerText = "I'm sorry, but you're wrong";
                     wrongAnswer.style.background = "#E6707C";
                 }
             } else {
@@ -254,9 +278,118 @@ function checkAnswers(arrayOfQuestions) {
         }
 
     }
+    /** we send the array with right questions */
+    const resultObject = countTheFinalResults(arrayOftheRightAnswers);
+    showTheFinalResults(resultObject);
+
+    const blablaBLA = countTheFinalResults(arrayOfQuestions)
+    countAllThePossibleScores(blablaBLA);
+
+
     /** we have to remove button after the user submit the question */
     const buttonToRemove = document.getElementById("send-answers");
     buttonToRemove.remove();
+}
+
+const countTheFinalResults = arrayOftheRightAnswers => {
+    let resultObject = {
+        difficultyBoolean: {
+            easy: 0,
+            medium: 0,
+            hard: 0
+        },
+        difficultyMultiple: {
+            easy: 0,
+            medium: 0,
+            hard: 0
+        }
+    }
+    for (let index = 0; index < arrayOftheRightAnswers.length; index++) {
+        let answerObject = arrayOftheRightAnswers[index];
+        console.log('type :>> ', answerObject.type);
+
+        if (answerObject.type === "multiple") {
+            for (key in resultObject.difficultyMultiple) {
+                if (key === answerObject.difficulty) {
+                    resultObject.difficultyMultiple[key] += 1;
+                }
+
+            }
+        } else {
+            for (key in resultObject.difficultyBoolean) {
+                if (key === answerObject.difficulty) {
+                    resultObject.difficultyBoolean[key] += 1;
+                }
+
+            }
+        }
+
+    }
+    console.log('resultObject :>> ', resultObject);
+    return resultObject;
+    //showTheFinalResults(resultObject);
+}
+
+const showTheFinalResults = resultObject => {
+    const table = document.querySelector(".table");
+
+    let row = 1;
+    let multiplicatorForDifficulty = 2;
+    let totalScore = 0;
+
+
+    for (let [key, value] of Object.entries(resultObject.difficultyMultiple)) {
+        table.rows[row].cells[1].innerText = value;
+        let valueTmp = parseInt(table.rows[row].cells[4].innerText);
+        table.rows[row++].cells[4].innerText = valueTmp + (value * multiplicatorForDifficulty);
+
+        totalScore += (value * multiplicatorForDifficulty);
+        multiplicatorForDifficulty += 2;
+    }
+    row = 1;
+    multiplicatorForDifficulty = 1;
+    for (let [key, value] of Object.entries(resultObject.difficultyBoolean)) {
+        table.rows[row].cells[3].innerText = value;
+        let valueTmp = parseInt(table.rows[row].cells[4].innerText);
+        table.rows[row++].cells[4].innerText = valueTmp + (value * multiplicatorForDifficulty);
+
+        totalScore += (value * multiplicatorForDifficulty);
+        multiplicatorForDifficulty++;
+    }
+
+    table.rows[4].cells[1].innerText = (totalScore);
+}
+
+const countAllThePossibleScores = (resultObject) => {
+    const table = document.querySelector(".table");
+
+    let row = 1;
+    let multiplicatorForDifficulty = 2;
+    let totalScore = 0;
+
+    for (let [key, value] of Object.entries(resultObject.difficultyMultiple)) {
+        //table.rows[row].cells[1].innerText = value;
+        /* let valueTmp = parseInt(table.rows[row].cells[4].innerText);
+        table.rows[row++].cells[4].innerText = valueTmp + (value * multiplicatorForDifficulty); */
+
+        totalScore += (value * multiplicatorForDifficulty);
+        multiplicatorForDifficulty += 2;
+    }
+    row = 1;
+    multiplicatorForDifficulty = 1;
+    for (let [key, value] of Object.entries(resultObject.difficultyBoolean)) {
+        //table.rows[row].cells[3].innerText = value;
+        /* let valueTmp = parseInt(table.rows[row].cells[4].innerText);
+        table.rows[row++].cells[4].innerText = valueTmp + (value * multiplicatorForDifficulty); */
+
+        totalScore += (value * multiplicatorForDifficulty);
+        multiplicatorForDifficulty++;
+    }
+
+    table.rows[4].cells[3].innerText = (totalScore);
+
+    const persentOfTheQuiz = Math.round((parseInt(table.rows[4].cells[1].innerText) / totalScore) * 100);
+    table.rows[4].cells[4].innerText = "You scored: " + persentOfTheQuiz + "%";
 }
 
 /** Funktion takes incorrect_answers and correct_answer, shufle them and return as array  */
@@ -317,3 +450,5 @@ const runTimer = (timeValue, amountOfQuestions) => {
     const myInterval = setInterval(timerLogic, 1000)
 
 }
+
+/** Results function */
