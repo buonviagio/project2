@@ -73,7 +73,7 @@ const startQuiz = (e) => {
 /** Clear the table */
 const clearTable = () => {
     const table = document.querySelector(".table");
-
+    table.rows[4].cells[4].style.color = "black";
     for (let index = 1; index < 5; index++) {
         table.rows[index].cells[1].innerText = 0;
         table.rows[index].cells[3].innerText = 0;
@@ -368,20 +368,12 @@ const countAllThePossibleScores = (resultObject) => {
     let totalScore = 0;
 
     for (let [key, value] of Object.entries(resultObject.difficultyMultiple)) {
-        //table.rows[row].cells[1].innerText = value;
-        /* let valueTmp = parseInt(table.rows[row].cells[4].innerText);
-        table.rows[row++].cells[4].innerText = valueTmp + (value * multiplicatorForDifficulty); */
-
         totalScore += (value * multiplicatorForDifficulty);
         multiplicatorForDifficulty += 2;
     }
     row = 1;
     multiplicatorForDifficulty = 1;
     for (let [key, value] of Object.entries(resultObject.difficultyBoolean)) {
-        //table.rows[row].cells[3].innerText = value;
-        /* let valueTmp = parseInt(table.rows[row].cells[4].innerText);
-        table.rows[row++].cells[4].innerText = valueTmp + (value * multiplicatorForDifficulty); */
-
         totalScore += (value * multiplicatorForDifficulty);
         multiplicatorForDifficulty++;
     }
@@ -389,6 +381,11 @@ const countAllThePossibleScores = (resultObject) => {
     table.rows[4].cells[3].innerText = (totalScore);
 
     const persentOfTheQuiz = Math.round((parseInt(table.rows[4].cells[1].innerText) / totalScore) * 100);
+    if (persentOfTheQuiz >= 60) {
+        table.rows[4].cells[4].style.color = "green";
+    } else {
+        table.rows[4].cells[4].style.color = "red";
+    }
     table.rows[4].cells[4].innerText = "You scored: " + persentOfTheQuiz + "%";
 }
 
